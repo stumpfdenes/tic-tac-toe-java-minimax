@@ -1,11 +1,6 @@
 package game;
 
-import player.HumanPlayer;
-import player.PerfectPlayer;
 import player.Player;
-import player.RandomPlayer;
-
-import java.util.Scanner;
 
 public class Main {
     public static void play(TicTacToe game, Player xPlayer, Player oPlayer, char startingLetter, boolean printGame) {
@@ -50,49 +45,18 @@ public class Main {
         }
     }
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+public static void main(String[] args) {
+        // Create players using the PlayerFactory
+        Player xPlayer = PlayerFactory.getPlayer('X');
+        Player oPlayer = PlayerFactory.getPlayer('O');
 
-        Player xPlayer = null;
-        System.out.println("Do you want 'X' to be Human, Random, or Perfect player? [h/r/p]");
+        // Get the starting symbol
+        char starter = PlayerFactory.getStarter();
 
-        while (xPlayer == null) {
-            String input = sc.nextLine().toLowerCase(); // Read input once and normalize to lowercase
-            switch (input) {
-                case "h" -> xPlayer = new HumanPlayer('X');
-                case "r" -> xPlayer = new RandomPlayer('X');
-                case "p" -> xPlayer = new PerfectPlayer('X');
-                default -> System.out.println("Invalid character. Please try again. [h/r/p]");
-            }
-        }
-
-        Player oPlayer = null;
-        System.out.println("How about 'O'? [h/r/p]");
-
-        while (oPlayer == null) {
-            String input = sc.nextLine().toLowerCase(); // Read input once and normalize to lowercase
-            switch (input) {
-                case "h" -> oPlayer = new HumanPlayer('O');
-                case "r" -> oPlayer = new RandomPlayer('O');
-                case "p" -> oPlayer = new PerfectPlayer('O');
-                default -> System.out.println("Invalid character. Please try again. [h/r/p]");
-            }
-        }
-
-        char starter = ' ';
-        System.out.println("Which symbol do you want to be the starter, 'X' or 'O'? [x/o]");
-
-        while (starter == ' ') {
-            String input = sc.nextLine().toLowerCase(); // Read input once and normalize to lowercase
-            switch (input) {
-                case "x" -> starter = 'X';
-                case "o" -> starter = 'O';
-                default -> System.out.println("Invalid character. Please try again. [x/o]");
-            }
-        }
-
+        // Create the TicTacToe game
         TicTacToe game = new TicTacToe();
 
+        // Start the game
         play(game, xPlayer, oPlayer, starter, true);
     }
 }
