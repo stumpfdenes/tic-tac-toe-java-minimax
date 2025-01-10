@@ -67,11 +67,11 @@ public class TicTacToe {
         // Undo the move by setting the position back to ' ' (empty)
         newBoard[lastMove] = ' ';
 
-        // Set the updated board back using the setter
+        // Set the updated board back
         this.board = newBoard;
 
-        // Optionally, reset the winner if necessary
-        currentWinner = null;  // No winner after undoing the move
+        // Reset the winner if necessary
+        currentWinner = null;
     }
 
     // Check for a winner
