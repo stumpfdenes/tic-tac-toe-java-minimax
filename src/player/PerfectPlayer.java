@@ -33,12 +33,14 @@ public record PerfectPlayer(char letter) implements Player {
 
         // Check terminal results
         if (Objects.equals(state.getCurrentWinner(), otherPlayer)) {
-            // Let score be negative or positive based on who won, multiplied by the number of remaining moves
+            // Let final score be negative or positive based on who won, multiplied by the number of
+            // remaining moves for reward scaling, leading to prioritization of quicker wins if possible
             int score = (otherPlayer == maxPlayer ? 1 : -1) * (state.numEmptySquares() + 1);
             result.put("position", -1);
             result.put("score", score);
             return result;
         } else if (!state.emptySquares()) {
+            // Set final score to 0 if it's a tie
             result.put("position", -1);
             result.put("score", 0);
             return result;
@@ -59,8 +61,10 @@ public record PerfectPlayer(char letter) implements Player {
             // Undo the moves and return to the original state
             state.undoMove(possibleMove);
 
+            // Simulated position added to simulated result map
             simulatedResult.put("position", possibleMove);
 
+            // Comparing the scores of simulated results with the best ones and swapping when appropriate
             if (player == maxPlayer) {
                 if (simulatedResult.get("score") > bestScore) {
                     bestPosition = possibleMove;
@@ -74,6 +78,7 @@ public record PerfectPlayer(char letter) implements Player {
             }
         }
 
+        // Adding the position and score of the best result to the result map and returning it
         result.put("position", bestPosition);
         result.put("score", bestScore);
         return result;
