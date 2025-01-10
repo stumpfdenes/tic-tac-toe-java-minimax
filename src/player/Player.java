@@ -2,10 +2,7 @@ package player;
 
 import game.TicTacToe;
 
-/**
- * @author stumpfdenes
- */
 public interface Player {
-    char letter();
+    char getLetter();
     int getMove(TicTacToe game);
 }

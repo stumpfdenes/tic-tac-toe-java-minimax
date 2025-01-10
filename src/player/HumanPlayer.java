@@ -4,11 +4,17 @@ import game.TicTacToe;
 
 import java.util.Scanner;
 
-/**
- *
- * @param letter
- */
-public record HumanPlayer(char letter) implements Player {
+public class HumanPlayer implements Player {
+    private final char letter;
+
+    public HumanPlayer(char letter) {
+        this.letter = letter;
+    }
+
+    @Override
+    public char getLetter() {
+        return letter;
+    }
 
     @Override
     public int getMove(TicTacToe game) {

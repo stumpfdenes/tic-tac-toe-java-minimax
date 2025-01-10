@@ -7,11 +7,17 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
 
-/**
- *
- * @param letter
- */
-public record PerfectPlayer(char letter) implements Player {
+public class PerfectPlayer implements Player {
+    private final char letter;
+
+    public PerfectPlayer(char letter) {
+        this.letter = letter;
+    }
+
+    @Override
+    public char getLetter() {
+        return letter;
+    }
 
     @Override
     public int getMove(TicTacToe game) {
@@ -21,13 +27,13 @@ public record PerfectPlayer(char letter) implements Player {
             int randomIndex = random.nextInt(game.availableMoves().size()); // Choose a random index
             move = game.availableMoves().get(randomIndex); // Return the move
         } else {
-            move = this.minimax(game, this.letter()).get("position"); // Return the move
+            move = this.minimax(game, this.getLetter()).get("position"); // Return the move
         }
         return move;
     }
 
     public Map<String, Integer> minimax(TicTacToe state, char player) {
-        char maxPlayer = this.letter();
+        char maxPlayer = this.getLetter();
         char otherPlayer = player == 'O' ? 'X' : 'O';
         Map<String, Integer> result = new HashMap<>();
 

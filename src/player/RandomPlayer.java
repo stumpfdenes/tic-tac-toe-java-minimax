@@ -4,11 +4,17 @@ import game.TicTacToe;
 
 import java.util.Random;
 
-/**
- *
- * @param letter
- */
-public record RandomPlayer(char letter) implements Player {
+public class RandomPlayer implements Player {
+    private final char letter;
+
+    public RandomPlayer(char letter) {
+        this.letter = letter;
+    }
+
+    @Override
+    public char getLetter() {
+        return letter;
+    }
 
     @Override
     public int getMove(TicTacToe game) {
